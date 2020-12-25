@@ -1,7 +1,14 @@
 CLASS net/minecraft/class_3031 net/minecraft/world/gen/feature/Feature
+	COMMENT Generates a small structure into the world at a given position. Trees, ores, lakes, and grass patches are
+	COMMENT all examples of features. A feature may not be able to be generated at a given position; in that case
+	COMMENT its {@link #generate} method returns {@code false}.
+	COMMENT
+	COMMENT <p>In order to influence where to place features, use a {@link net.minecraft.world.gen.decorator.Decorator}.
 	FIELD field_13526 BONUS_CHEST Lnet/minecraft/class_2953;
 	FIELD field_13567 SEAGRASS Lnet/minecraft/class_3168;
 	FIELD field_21219 FLOWER Lnet/minecraft/class_4624;
+	FIELD field_21590 NO_OP Lnet/minecraft/class_3031;
+		COMMENT A feature that generates nothing, but acts like it does anyway.
 	FIELD field_24837 codec Lcom/mojang/serialization/Codec;
 	FIELD field_26361 NO_BONEMEAL_FLOWER Lnet/minecraft/class_4624;
 	METHOD <init> (Lcom/mojang/serialization/Codec;)V
@@ -10,6 +17,9 @@ CLASS net/minecraft/class_3031 net/minecraft/world/gen/feature/Feature
 		ARG 0 name
 		ARG 1 feature
 	METHOD method_13151 generate (Lnet/minecraft/class_5281;Lnet/minecraft/class_2794;Ljava/util/Random;Lnet/minecraft/class_2338;Lnet/minecraft/class_3037;)Z
+		COMMENT Generates a feature at the given position.
+		COMMENT
+		COMMENT @return whether a feature was actually generated or not
 		ARG 1 world
 		ARG 2 chunkGenerator
 		ARG 3 random

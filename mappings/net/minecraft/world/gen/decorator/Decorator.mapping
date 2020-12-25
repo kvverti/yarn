@@ -1,11 +1,52 @@
 CLASS net/minecraft/class_3284 net/minecraft/world/gen/decorator/Decorator
+	COMMENT Generates a stream of {@link BlockPos} given an initial block position. Decorators determine where in
+	COMMENT a population region features are placed; and how many positions are sampled from the total space
+	COMMENT in the region. For example, decorators determine the distribution of ore generation and the placement of
+	COMMENT features such as water lakes, grass, and trees.
+	COMMENT
+	COMMENT <p>Decorators may be composed using the {@code minecraft:decorated} decorator. This allows one
+	COMMENT to create sophistocated position samples.
+	FIELD field_14243 ICEBERG Lnet/minecraft/class_3284;
+		COMMENT A decorator for placing icebergs.
+	FIELD field_14250 NOPE Lnet/minecraft/class_3284;
+		COMMENT A decorator that passes through the initial position unchanged. This is mainly used for structures
+		COMMENT that do not generate very often or that have their own special placement handling.
+	FIELD field_14251 END_ISLAND Lnet/minecraft/class_3284;
+		COMMENT A decorator for placing the small end islands.
 	FIELD field_24983 codec Lcom/mojang/serialization/Codec;
+	FIELD field_25859 DECORATED Lnet/minecraft/class_3284;
+		COMMENT A decorator that composes two decorators (which may themselves be this decorator).
+	FIELD field_25861 CHANCE Lnet/minecraft/class_3284;
+		COMMENT A decorator that filters positions with a probability of {@code 1 / config.chance}. This is used when feature
+		COMMENT placement should be sparse.
+	FIELD field_25862 COUNT Lnet/minecraft/class_3284;
+		COMMENT A decorator that duplicates the input position {@code config.count} times.
+	FIELD field_25863 COUNT_NOISE Lnet/minecraft/class_3284;
+		COMMENT A decorator that duplicates the input position to one of two different counts based on a noise map.
+	FIELD field_25865 COUNT_EXTRA Lnet/minecraft/class_3284;
+		COMMENT A decorator that duplicates the input position {@code config.count} times, plus an additional
+		COMMENT {@code config.extra_count} times with a probability of {@code config.extra_chance}.
+	FIELD field_25866 SQUARE Lnet/minecraft/class_3284;
+		COMMENT A decorator that offsets its input position by a small random amount. This is typically used after applying
+		COMMENT a count decorator in order to spread the positions to different blocks, or to hide any gridded pattern in
+		COMMENT the default feature placement.
+	FIELD field_25867 HEIGHTMAP Lnet/minecraft/class_3284;
+		COMMENT A decorator that maps the input position to the {@linkplain net.minecraft.world.Heightmap.Type.MOTION_BLOCKING motion blocking}
+		COMMENT heightmap.
+	FIELD field_25870 RANGE Lnet/minecraft/class_3284;
+		COMMENT A decorator that distributes positions evenly across a vertical range.
+	FIELD field_25871 RANGE_BIASED Lnet/minecraft/class_3284;
+		COMMENT A decorator that distributes positions across a vertical range, biased toward lower y values.
+	FIELD field_25872 RANGE_VERY_BIASED Lnet/minecraft/class_3284;
+		COMMENT A decorator that distributes positions across a vertical range, very biased toward lower y values.
 	METHOD <init> (Lcom/mojang/serialization/Codec;)V
 		ARG 1 configCodec
 	METHOD method_14450 register (Ljava/lang/String;Lnet/minecraft/class_3284;)Lnet/minecraft/class_3284;
 		ARG 0 registryName
 		ARG 1 decorator
 	METHOD method_14452 getPositions (Lnet/minecraft/class_5444;Ljava/util/Random;Lnet/minecraft/class_2998;Lnet/minecraft/class_2338;)Ljava/util/stream/Stream;
+		COMMENT Based on the given position and context, generates a stream of new positions. These positions will
+		COMMENT be fed into the next decorator or into the final feature.
 		ARG 1 context
 		ARG 2 random
 		ARG 3 config
